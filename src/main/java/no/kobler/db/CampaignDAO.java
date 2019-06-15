@@ -1,5 +1,7 @@
 package no.kobler.db;
 
+import java.util.List;
+
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
@@ -21,7 +23,7 @@ public interface CampaignDAO {
 	
 	@SqlUpdate("INSERT INTO Campaigns (NAME,BUDGET,SPENDING,KEYWORDS) VALUES(:name, :budget, :spending, :keywords)")
     @GetGeneratedKeys
-    int addCampaign(@BindBean Campaign employee);
+    int addCampaign(@BindBean Campaign employee)throws Exception;
 	
 	@SqlUpdate("INSERT INTO Keywords (keyword,campaign_id) VALUES(:keywords,:campaign_id)")
     @GetGeneratedKeys
@@ -29,4 +31,7 @@ public interface CampaignDAO {
 	
 	@SqlQuery("SELECT * FROM Campaigns WHERE id = :id")
     Campaign getCampaign(@Bind("id") long id);
+	
+	@SqlQuery("SELECT * FROM Campaigns ")
+    List<Campaign> getAllCampaigns();
 }

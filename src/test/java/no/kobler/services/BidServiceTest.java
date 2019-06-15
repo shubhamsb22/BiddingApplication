@@ -14,6 +14,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redisson.Redisson;
+import org.redisson.api.RMapCache;
+import org.redisson.api.RedissonClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -22,6 +25,8 @@ import no.kobler.api.BidRequest;
 import no.kobler.core.Campaign;
 import no.kobler.db.BidDAO;
 import no.kobler.db.CampaignDAO;
+import no.kobler.exception.GenericException;
+import no.kobler.redisconfiguration.RedissonManaged;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class BidServiceTest {
@@ -29,6 +34,9 @@ public class BidServiceTest {
 	private static final BidDAO BID_DAO = mock(BidDAO.class);
 	private static final CampaignDAO CAMPAIGN_DAO = mock(CampaignDAO.class);
 	private BidService bidService = new BidService(BID_DAO,CAMPAIGN_DAO);
+	RedissonClient redissonClient = Redisson.create();
+  	RedissonManaged redissonManaged = new RedissonManaged(redissonClient);
+	RMapCache<Integer, Integer> cacheMap = redissonClient.getMapCache("temp");
 
 	private BidRequest bid;
 	private List<Integer> campaignlist;
@@ -61,7 +69,7 @@ public class BidServiceTest {
 	}
 
 	@Test
-	public void createBid() throws JsonProcessingException {
+	public void createBid() throws JsonProcessingException, GenericException {
 		
 		campaignlist.add(1);
 
@@ -69,19 +77,19 @@ public class BidServiceTest {
 		when(CAMPAIGN_DAO.getCampaign(1)).thenReturn(campaign);
 		doNothing().when(BID_DAO).updateCampaignTable(any(Double.class), any(Integer.class));
 
-		final Boolean response = bidService.processBid(bid);
+		final Boolean response = bidService.processBid(bid, cacheMap);
 
 		assertThat(response).isEqualTo(true);
 	}
 
 	@Test
-	public void createBid_Negative_Test() throws JsonProcessingException {
+	public void createBid_Negative_Test() throws JsonProcessingException, GenericException {
 
 		when(BID_DAO.getAllCampaignIDbyKeywords(s)).thenReturn(campaignlist);
 		when(CAMPAIGN_DAO.getCampaign(0)).thenReturn(campaign);
 		doNothing().when(BID_DAO).updateCampaignTable(any(Double.class), any(Integer.class));
 
-		final Boolean response = bidService.processBid(bid);
+		final Boolean response = bidService.processBid(bid, cacheMap);
 
 		assertThat(response).isEqualTo(false);
 	}

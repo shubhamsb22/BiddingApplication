@@ -31,6 +31,7 @@ public class Campaign {
 	private double budget;
 	private String[] keywords;
 	private double spending;
+	private int count;
 	
 	public int getId() {
 		return id;
@@ -63,9 +64,19 @@ public class Campaign {
 		this.keywords = keywords;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
 		return "Campaign [id=" + id + ", name=" + name + ", budget=" + budget + ", keywords="
-				+ Arrays.toString(keywords) + ", spending=" + spending + "]";
+				+ Arrays.toString(keywords) + ", spending=" + spending + ", count=" + count + "]";
 	}
+
+	
 }

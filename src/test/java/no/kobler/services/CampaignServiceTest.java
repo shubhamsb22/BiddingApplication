@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import no.kobler.api.CampaignRequest;
 import no.kobler.core.Campaign;
 import no.kobler.db.CampaignDAO;
+import no.kobler.exception.GenericException;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class CampaignServiceTest {
@@ -47,19 +49,28 @@ public class CampaignServiceTest {
     	campaign.setName("Sample");
     	campaign.setKeywords(al);
     }
+    
     @Test
-    public void createCampaign() throws JsonProcessingException {
+    public void createCampaign() throws Exception {
 
 		when(CAMPAIGN_DAO.addCampaign(any(Campaign.class))).thenReturn(0);
 		when(CAMPAIGN_DAO.addKeywords(any(String.class),any(Integer.class))).thenReturn(0);
-		
+	
 		final Integer response = campaignService.processCampaign(campaignRequest);
-		
 		assertThat(response).isEqualTo(0);
+    }
+    
+    @Test
+    public void createCampaign_Negative() throws Exception {
+
+		when(CAMPAIGN_DAO.addCampaign(any(Campaign.class))).thenThrow(Exception.class);
+		when(CAMPAIGN_DAO.addKeywords(any(String.class),any(Integer.class))).thenReturn(0);
+		
+		Assertions.assertThrows(GenericException.class, () -> campaignService.processCampaign(campaignRequest));
     }
 	
 	 @Test
-    public void fetchCampaign() throws JsonProcessingException {
+    public void fetchCampaign() throws JsonProcessingException, GenericException {
     	
 		when(CAMPAIGN_DAO.getCampaign(0)).thenReturn(campaign);
 		
@@ -70,7 +81,7 @@ public class CampaignServiceTest {
 		
     }
 	 @Test
-	    public void fetchCampaign_negative() throws JsonProcessingException {
+	    public void fetchCampaign_negative() throws JsonProcessingException, GenericException {
 	    	
 			when(CAMPAIGN_DAO.getCampaign(0)).thenReturn(null);
 			

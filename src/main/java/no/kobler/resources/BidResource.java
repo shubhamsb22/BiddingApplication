@@ -9,25 +9,39 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.redisson.api.RMapCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import no.kobler.api.BidRequest;
 import no.kobler.api.BidResponse;
+import no.kobler.exception.GenericException;
 import no.kobler.services.BidService;
 
 @Path("/bids")
 public class BidResource {
 	
+	Logger log = LoggerFactory.getLogger(BidResource.class);
 	private BidService bidService;
+	private RMapCache<Integer, Integer> cacheMap;
     
-	public BidResource(BidService bidService) {
+	public BidResource(BidService bidService, RMapCache<Integer, Integer> cacheMap) {
         this.bidService = bidService;
+        this.cacheMap = cacheMap;
     }
     
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response processBid(BidRequest bidRequest) {
+    public Response processBid(BidRequest bidRequest) throws InterruptedException {
     	
-    	Boolean status= bidService.processBid(bidRequest);
+    	Boolean status;
+		try {
+			status = bidService.processBid(bidRequest, cacheMap);
+		} catch (GenericException e) {
+			log.error("Exception occured with reason: {}", e);
+			return Response.status(Response.Status.BAD_GATEWAY).build();
+		}
     	if(status)
         return Response.ok(new BidResponse(bidRequest.getBidId(),BigDecimal.ONE),MediaType.APPLICATION_JSON).build();
     	

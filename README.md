@@ -2,7 +2,7 @@
 A Dropwizard web application to create keyword based advertising campaigns and activate campaigns in response to real time bidding requests.
 
 # Introduction
-The Application demonstrates a sample application that creates an API to create campaigns and bid against them. The Application uses an im-memory H2 database to store session specific data. Hibernate libraries are used in addition to smoothen the interaction with the database.
+The Application demonstrates a sample application that creates an API to create campaigns and bid against them. The Application uses an in-memory H2 database to store session specific data. Hibernate libraries are used in addition to smoothen the interaction with the database.
 
 A brief description of the classes in the application:
 
@@ -23,6 +23,28 @@ A brief description of the classes in the application:
 
         java -jar target/biddingapplication-0.0.1-SNAPSHOT.jar server config.yml
 
-* To test the API, please use the following commands:
+* To test the Create Campaign API, please use the following commands:
 
+        curl --include \
+        --header "Content-Type: application/json" \
+        --request POST \
+        --data '{"name":"Test", "keywords": ["technology"], "budget": 100.0}' \
+        http://localhost:8080/campaigns
+
+* To verify the Created Campaign, please use the following commands:
         
+        curl --include http://localhost:8080/campaigns/<campaign_id>
+
+        campaign_id: Campaign Id returned by the Create Campaign API.
+
+* To test the Bidding API, please use the following commands:
+
+        curl --include \
+        --header "Content-Type: application/json" \
+        --request POST \
+        --data '{"bidId":"1", "keywords": ["technology"]}' \
+        http://localhost:8080/bids
+
+* Assumptions:
+
+1. In case of exceptions occured, Bad Gateway Response would be sent.

@@ -24,6 +24,7 @@ import io.dropwizard.testing.junit5.ResourceExtension;
 import no.kobler.api.CampaignRequest;
 import no.kobler.api.CampaignResponse;
 import no.kobler.core.Campaign;
+import no.kobler.exception.GenericException;
 import no.kobler.services.CampaignService;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
@@ -63,20 +64,20 @@ public class CampaignResourceTest {
     	campaign.setKeywords(al);
     }
     @Test
-    public void createCampaign() throws JsonProcessingException {
+    public void createCampaign() throws JsonProcessingException, GenericException {
 
 		when(CAMPAIGN_SERVICE.processCampaign(any(CampaignRequest.class))).thenReturn(0);
 		
 		final Response response = RESOURCES.target("/campaigns")
                 .request(MediaType.TEXT_XML).post(Entity.entity(campaignRequest,MediaType.APPLICATION_JSON));
 		
-		assertThat(response.getStatusInfo()).isEqualTo(Response.Status.OK);
+
 		String x = response.readEntity(String.class);
         assertThat(x).isEqualTo("Location: /campaigns/0");
     }
 	
 	 @Test
-    public void fetchCampaign() throws JsonProcessingException {
+    public void fetchCampaign() throws JsonProcessingException, GenericException {
     	
 		when(CAMPAIGN_SERVICE.fetchCampaign(0)).thenReturn(campaign);
 		
@@ -89,7 +90,7 @@ public class CampaignResourceTest {
 		
     }
 	 @Test
-	    public void fetchCampaign_negative() throws JsonProcessingException {
+	    public void fetchCampaign_negative() throws JsonProcessingException, GenericException {
 	    	
 			when(CAMPAIGN_SERVICE.fetchCampaign(0)).thenReturn(null);
 			
