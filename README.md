@@ -47,4 +47,4 @@ A brief description of the classes in the application:
 
 * Assumptions:
 
-1. In case of exceptions occured, Bad Gateway Response would be sent.
+1. In case of exceptions, Bad Gateway Response would be sent.
