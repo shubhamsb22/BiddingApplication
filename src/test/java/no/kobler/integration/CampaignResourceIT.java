@@ -25,8 +25,8 @@ import io.dropwizard.testing.ConfigOverride;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
-import no.kobler.biddingappApplication;
-import no.kobler.biddingappConfiguration;
+import no.kobler.BiddingAppApplication;
+import no.kobler.BiddingAppConfiguration;
 import no.kobler.api.CampaignRequest;
 import no.kobler.api.CampaignResponse;
 
@@ -37,8 +37,8 @@ public class CampaignResourceIT {
 	static String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-example.yml");
 
 	
-	private static DropwizardAppExtension<biddingappConfiguration> RULE = new DropwizardAppExtension<>(
-			biddingappApplication.class, CONFIG_PATH, 
+	private static DropwizardAppExtension<BiddingAppConfiguration> RULE = new DropwizardAppExtension<>(
+			BiddingAppApplication.class, CONFIG_PATH, 
 			ConfigOverride.config("database.url", "jdbc:h2:" + TMP_FILE));
 
 

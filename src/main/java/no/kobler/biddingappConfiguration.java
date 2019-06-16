@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 
-public class biddingappConfiguration extends Configuration {
+public class BiddingAppConfiguration extends Configuration {
 	@NotEmpty
     private String template;
 	

@@ -19,14 +19,14 @@ import no.kobler.services.CampaignService;
 
 
 
-public class biddingappApplication extends Application<biddingappConfiguration> {
+public class BiddingAppApplication extends Application<BiddingAppConfiguration> {
 
     public static void main(final String[] args) throws Exception {
-        new biddingappApplication().run(args);
+        new BiddingAppApplication().run(args);
     }
     
     @Override
-    public void initialize(Bootstrap<biddingappConfiguration> bootstrap) {
+    public void initialize(Bootstrap<BiddingAppConfiguration> bootstrap) {
     }
     
     @Override
@@ -35,13 +35,13 @@ public class biddingappApplication extends Application<biddingappConfiguration> 
     }
     
     @Override
-    public void run(biddingappConfiguration conf, Environment env) throws ClassNotFoundException, InterruptedException {
+    public void run(BiddingAppConfiguration conf, Environment env) throws ClassNotFoundException, InterruptedException {
     	
     	RedissonClient redissonClient = Redisson.create();
     	RedissonManaged redissonManaged = new RedissonManaged(redissonClient);
         env.lifecycle().manage(redissonManaged);
-        RMapCache<Integer, Integer> cacheMap = redissonClient.getMapCache("hi");
-        
+        RMapCache<Integer, Integer> cacheMap = redissonClient.getMapCache("cacheMap");
+        cacheMap.clear();
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(env, conf.getDataSourceFactory(),"h2");
         final CampaignDAO campaignDAO = jdbi.onDemand(CampaignDAO.class);
