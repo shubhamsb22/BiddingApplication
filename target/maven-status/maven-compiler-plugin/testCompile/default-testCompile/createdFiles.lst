@@ -1,0 +1,5 @@
+no\kobler\services\CampaignServiceTest.class
+no\kobler\resources\BidResourceTest.class
+no\kobler\resources\CampaignResourceTest.class
+no\kobler\integration\CampaignResourceIT.class
+no\kobler\services\BidServiceTest.class

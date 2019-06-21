@@ -65,4 +65,6 @@ logging:
       archivedFileCount: 7
       timeZone: UTC
       maxFileSize: 10MiB
-  
+# the only required property is resourcePackage, for more config options see below
+swagger:
+  resourcePackage: no.kobler.resources

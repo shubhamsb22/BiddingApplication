@@ -9,6 +9,8 @@ import io.dropwizard.Application;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import no.kobler.db.BidDAO;
 import no.kobler.db.CampaignDAO;
 import no.kobler.redisconfiguration.RedissonManaged;
@@ -16,8 +18,6 @@ import no.kobler.resources.BidResource;
 import no.kobler.resources.CampaignResource;
 import no.kobler.services.BidService;
 import no.kobler.services.CampaignService;
-
-
 
 public class BiddingAppApplication extends Application<BiddingAppConfiguration> {
 
@@ -27,6 +27,12 @@ public class BiddingAppApplication extends Application<BiddingAppConfiguration> 
     
     @Override
     public void initialize(Bootstrap<BiddingAppConfiguration> bootstrap) {
+    	bootstrap.addBundle(new SwaggerBundle<BiddingAppConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(BiddingAppConfiguration configuration) {
+                return configuration.swaggerBundleConfiguration;
+            }
+        });
     }
     
     @Override

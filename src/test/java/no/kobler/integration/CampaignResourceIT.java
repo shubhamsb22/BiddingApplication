@@ -36,7 +36,7 @@ public class CampaignResourceIT {
 	static String TMP_FILE = createTempFile();
 	static String CONFIG_PATH = ResourceHelpers.resourceFilePath("test-example.yml");
 
-	
+
 	private static DropwizardAppExtension<BiddingAppConfiguration> RULE = new DropwizardAppExtension<>(
 			BiddingAppApplication.class, CONFIG_PATH, 
 			ConfigOverride.config("database.url", "jdbc:h2:" + TMP_FILE));
@@ -45,14 +45,14 @@ public class CampaignResourceIT {
 	private static CampaignRequest req;
 
 	private static String createTempFile() { 
-		
-		 try {
-			 String s=File.createTempFile("test-example", null).getAbsolutePath();
-			 System.out.println(s);
-	            return s;
-	        } catch (IOException e) {
-	            throw new IllegalStateException(e);
-	        }
+
+		try {
+			String s=File.createTempFile("test-example", null).getAbsolutePath();
+			System.out.println(s);
+			return s;
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 
@@ -81,35 +81,30 @@ public class CampaignResourceIT {
 	}
 
 
-	@Test
-	public void testGetCampagin() throws Exception {
 
-		final Response response = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/campaigns/1")
-				.request()
-				.get(Response.class);
+	@Test public void testGetCampagin() throws Exception {
+
+		final Response response = RULE.client().target("http://localhost:" +
+				RULE.getLocalPort() + "/campaigns/1") .request() .get(Response.class);
 
 		CampaignResponse responseBody = response.readEntity(CampaignResponse.class);
 		assertEquals(req.getBudget(), responseBody.getBudget());
-		assertEquals(req.getName(), responseBody.getName());
-		assertEquals(0, responseBody.getSpending());
-	}
+		assertEquals(req.getName(), responseBody.getName()); assertEquals(0,
+				responseBody.getSpending()); }
 
-	@Test
-	public void testGetCampagin_Negative() throws Exception {
+	@Test public void testGetCampagin_Negative() throws Exception {
 
-		final Response response = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/campaigns/0")
-				.request()
-				.get(Response.class);
+		final Response response = RULE.client().target("http://localhost:" +
+				RULE.getLocalPort() + "/campaigns/0") .request() .get(Response.class);
 
-		assertThat(response.getStatusInfo()).isEqualTo(Response.Status.NO_CONTENT);
-	}
+		assertThat(response.getStatusInfo()).isEqualTo(Response.Status.NO_CONTENT); }
 
 
-	
+
 	@Test
 	public void testLogFileWritten() throws IOException {
-		
+
 		final Path log = Paths.get("./logs/application.log"); assertThat(log).exists();
-	  final String actual = new String(Files.readAllBytes(log), UTF_8);
-	  assertThat(actual).contains("0.0.0.0:" + RULE.getLocalPort()); }
-	 }
+		final String actual = new String(Files.readAllBytes(log), UTF_8);
+		assertThat(actual).contains("0.0.0.0:" + RULE.getLocalPort()); }
+}

@@ -14,6 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.annotation.Timed;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import no.kobler.api.CampaignRequest;
 import no.kobler.api.CampaignResponse;
 import no.kobler.core.Campaign;
@@ -21,6 +25,7 @@ import no.kobler.exception.GenericException;
 import no.kobler.services.CampaignService;
 
 @Path("/campaigns")
+@Api(value = "/campaigns", description = "Operations about campaign")
 public class CampaignResource {
 
 	Logger log = LoggerFactory.getLogger(CampaignResource.class);
@@ -31,11 +36,12 @@ public class CampaignResource {
 		this.campaignService = campaignService;
 	}
 
-
 	@POST
 	@Consumes("application/json")
 	@Produces("text/xml")
 	@Timed
+	@ApiOperation(value = "Add a new campaign ")
+	@ApiResponses(value = { @ApiResponse(code = 502, message = "Something went wrong") })
 	public Response processCampaign(CampaignRequest campaignRequest) {
 
 		log.info("received request to add campaign with name: {}", campaignRequest.getName());
@@ -52,6 +58,12 @@ public class CampaignResource {
 	@Path("/{id}")
 	@GET
 	@Produces("application/json")
+	@ApiOperation(
+			value = "Find campaign by ID", 
+			notes = "Returns a campaign ",
+			response = Response.class)
+		@ApiResponses(value = { @ApiResponse(code = 204, message = "No campaign found"),
+				@ApiResponse(code = 502, message = "Something went wrong") })
 	public Response fetchCampaign(@PathParam("id") int id)
 	{
 		Campaign campaign = null;

@@ -69,7 +69,6 @@ public class BidService {
 		try
 		{
 		int key = campaign.getId();
-
 		if(null != cacheMap.get(key) && cacheMap.get(key) >= 10)
 			return false;
 

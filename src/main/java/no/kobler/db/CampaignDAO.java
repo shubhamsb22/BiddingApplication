@@ -1,7 +1,5 @@
 package no.kobler.db;
 
-import java.util.List;
-
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
@@ -32,6 +30,4 @@ public interface CampaignDAO {
 	@SqlQuery("SELECT * FROM Campaigns WHERE id = :id")
     Campaign getCampaign(@Bind("id") long id);
 	
-	@SqlQuery("SELECT * FROM Campaigns ")
-    List<Campaign> getAllCampaigns();
 }

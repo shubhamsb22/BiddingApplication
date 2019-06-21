@@ -23,6 +23,15 @@ A brief description of the classes in the application:
 
         java -jar target/biddingapplication-0.0.1-SNAPSHOT.jar server config.yml
 
+* To Run the Application locally, you must install redis 3.0 + and start the redis server. All the necessary files are included in Redis Folder. More details can be found on the pages [Windows] (https://github.com/microsoftarchive/redis/releases) [Linux](https://redis.io/download)
+
+* To run the Application using Docker, please run the following commands:
+
+        docker build .
+        docker run -it <image_name/image_id>
+
+image name/id is returned by bocker build. Custom redis installation is not required when you run the application using docker.
+
 * To test the Create Campaign API, please use the following commands:
 
         curl --include \

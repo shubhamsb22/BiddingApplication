@@ -1,0 +1,32 @@
+INFO  [2019-06-20 16:49:45,993] io.dropwizard.server.DefaultServerFactory: Registering jersey handler with root path prefix: /
+INFO  [2019-06-20 16:49:46,012] io.dropwizard.server.DefaultServerFactory: Registering admin handler with root path prefix: /
+INFO  [2019-06-20 16:49:47,171] org.redisson.Version: Redisson 3.7.0
+INFO  [2019-06-20 16:49:50,151] org.redisson.connection.pool.MasterPubSubConnectionPool: 1 connections initialized for 127.0.0.1/127.0.0.1:6379
+INFO  [2019-06-20 16:49:50,152] org.redisson.connection.pool.MasterConnectionPool: 32 connections initialized for 127.0.0.1/127.0.0.1:6379
+INFO  [2019-06-20 16:49:54,228] io.dropwizard.server.ServerFactory: Starting biddingapp
+================================================================================
+
+                              biddingapp
+
+================================================================================
+
+
+INFO  [2019-06-20 16:49:54,704] org.eclipse.jetty.setuid.SetUIDListener: Opened application@3a788fe0{HTTP/1.1,[http/1.1]}{0.0.0.0:51527}
+INFO  [2019-06-20 16:49:54,705] org.eclipse.jetty.setuid.SetUIDListener: Opened admin@430df350{HTTP/1.1,[http/1.1]}{0.0.0.0:51528}
+INFO  [2019-06-20 16:49:54,714] org.eclipse.jetty.server.Server: jetty-9.4.18.v20190429; built: 2019-04-29T20:42:08.989Z; git: e1bc35120a6617ee3df052294e433f3a25ce7097; jvm 1.8.0_162-b12
+INFO  [2019-06-20 16:52:33,084] io.dropwizard.server.DefaultServerFactory: Registering jersey handler with root path prefix: /
+INFO  [2019-06-20 16:52:33,090] io.dropwizard.server.DefaultServerFactory: Registering admin handler with root path prefix: /
+INFO  [2019-06-20 16:52:33,368] org.redisson.Version: Redisson 3.7.0
+INFO  [2019-06-20 16:52:34,255] org.redisson.connection.pool.MasterPubSubConnectionPool: 1 connections initialized for 127.0.0.1/127.0.0.1:6379
+INFO  [2019-06-20 16:52:34,255] org.redisson.connection.pool.MasterConnectionPool: 32 connections initialized for 127.0.0.1/127.0.0.1:6379
+INFO  [2019-06-20 16:52:35,249] io.dropwizard.server.ServerFactory: Starting biddingapp
+================================================================================
+
+                              biddingapp
+
+================================================================================
+
+
+INFO  [2019-06-20 16:52:35,389] org.eclipse.jetty.setuid.SetUIDListener: Opened application@1373e3ee{HTTP/1.1,[http/1.1]}{0.0.0.0:51590}
+INFO  [2019-06-20 16:52:35,390] org.eclipse.jetty.setuid.SetUIDListener: Opened admin@175c5c3a{HTTP/1.1,[http/1.1]}{0.0.0.0:51591}
+INFO  [2019-06-20 16:52:35,395] org.eclipse.jetty.server.Server: jetty-9.4.18.v20190429; built: 2019-04-29T20:42:08.989Z; git: e1bc35120a6617ee3df052294e433f3a25ce7097; jvm 1.8.0_162-b12

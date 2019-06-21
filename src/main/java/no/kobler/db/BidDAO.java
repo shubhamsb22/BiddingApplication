@@ -17,9 +17,6 @@ public interface BidDAO{
 	@SqlQuery("select campaign_id from Keywords,Campaigns where keyword in (:keywords) and budget  > spending and campaign_id=Campaigns.id")
     List<Integer> getAllCampaignIDbyKeywords(@Bind("keywords") String[] keywords);
 	
-	@SqlQuery("SELECT * FROM Campaigns")
-    List<Campaign> getAllCampaign();
-	
 	@SqlUpdate("UPDATE Campaigns SET spending = :spending where id =:id")
     void updateCampaignTable(@Bind("spending") double spending,@Bind("id") int id);
 	
