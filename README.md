@@ -23,7 +23,7 @@ A brief description of the classes in the application:
 
         java -jar target/biddingapplication-0.0.1-SNAPSHOT.jar server config.yml
 
-* To Run the Application locally, you must install redis 3.0 + and start the redis server. All the necessary files are included in Redis Folder. More details can be found on the pages [Windows] (https://github.com/microsoftarchive/redis/releases) [Linux](https://redis.io/download)
+* To Run the Application locally, you must install redis 3.0 + and start the redis server. All the necessary files are included in Redis Folder. More details can be found on the pages [Windows](https://github.com/microsoftarchive/redis/releases) [Linux](https://redis.io/download)
 
 * To run the Application using Docker, please run the following commands:
 
